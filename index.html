@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="room.css">
+  <script>
+      function preventBack() {
+          window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function() {
+          null;
+      }
+  </script>
+</head>
+<body>
+  <div id="video-grid">
+    <div class="videoContainer">
+      <video autoplay></video>
+    </div>
+  </div>
+  <div id="controlBtn">
+    <button>Tắt Camera</button>
+    <button>Tắt mic</button>
+    <button>Rời phòng</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="room.js"></script>
+</body>
+</html>
