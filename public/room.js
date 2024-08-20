@@ -38,7 +38,16 @@ function start() {
       height: { max: 240 },
       frameRate: { max: 30 },
     },
-    audio: true,
+    audio: {
+      autoGainControl: false,
+      channelCount: 2,
+      echoCancellation: true,
+      latency: 0,
+      noiseSuppression: true,
+      sampleRate: 44100,
+      sampleSize: 32,
+      volume: 1.0,
+    },
   };
 
   navigator.mediaDevices
@@ -84,6 +93,15 @@ function getMessage(msg) {
         if (msg.sdp.type == "offer") {
           peerConnection[remoteUuid].pc
             .createAnswer()
+            .then(
+              (description) => {
+                description.sdp = description.sdp.replace(
+                  "useinbandfec=1",
+                  "useinbandfec=1; stereo=1; maxaveragebitrate=510000"
+                )
+                return description;
+              }
+            )
             .then((description) => createDescription(description, remoteUuid))
             .catch(errorHandler);
         }
