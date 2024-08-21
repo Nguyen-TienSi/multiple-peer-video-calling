@@ -2,6 +2,8 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 #controlBtn {
@@ -17,22 +19,35 @@ body {
 }
 
 #controlBtn button {
+    font-size: 20px;
+    height: 30px;
+    padding: 20px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: black;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    height: 30px;
-    padding: 20px;
-    margin: 0 20px;
+}
+
+#controlBtn button:hover {
+    background-color: #45a049;
 }
 
 #video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    grid-auto-rows: 300px;
-    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    grid-gap: 10px;
+    padding: 10px;
+    position: relative; /* Add this for positioning */
 }
 
 .videoContainer {
     position: relative;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .videoContainer video {
@@ -41,14 +56,43 @@ body {
     object-fit: cover;
 }
 
+.videoContainer .material-icons {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    font-size: 36px; /* Adjust icon size as needed */
+    color: #333; /* Icon color */
+    z-index: 2; /* Ensure icon is above video */
+}
+
 .videoLabel {
     color: white;
-    font: bold 18px Arial, Sans-Serif;
-    line-height: 18px;
-    height: 18px;
-    background: rgba(0, 0, 0, 0.55);
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.7);
     position: absolute;
     left: 0;
     bottom: 0;
     padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    #video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-auto-rows: 120px;
+        grid-gap: 5px;
+    }
+
+    #controlBtn {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #controlBtn button {
+        margin: 5px 0;
+    }
 }

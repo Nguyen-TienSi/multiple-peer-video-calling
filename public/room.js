@@ -194,9 +194,13 @@ function toggleCamera() {
 function toggleMic() {
   let audioTrack = localStream.getAudioTracks()[0];
   audioTrack.enabled = !audioTrack.enabled;
+  let micIcon = document.getElementById("micIcon");
+
   if (audioTrack.enabled) {
+    micIcon.style.display = "none";
     micBtn.textContent = "Tắt mic";
   } else {
+    micIcon.style.display = "block";
     micBtn.textContent = "Mở mic";
   }
 }
