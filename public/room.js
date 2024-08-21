@@ -38,7 +38,12 @@ function start() {
       height: { max: 240 },
       frameRate: { max: 30 },
     },
-    audio: true,
+    audio: {
+      autoGainControl: false,
+      echoCancellation: false,
+      noiseSuppression: false,
+      volume: 1.0
+    },
   };
 
   navigator.mediaDevices
