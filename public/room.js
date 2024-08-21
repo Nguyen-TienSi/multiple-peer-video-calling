@@ -142,16 +142,6 @@ function createDescription(description, remoteUuid) {
   });
 }
 
-function handleDisconnection(event, remoteUuid) {
-  const state = peerConnection[remoteUuid].pc.iceConnectionState;
-  if (state === "failed" || state === "closed" || state === "disconnected") {
-    delete peerConnection[remoteUuid];
-    document
-      .getElementById("video-grid")
-      .removeChild(document.getElementById(`${remoteUuid}`));
-  }
-}
-
 function createUUID() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -174,6 +164,8 @@ function createVideo(stream, remoteUuid) {
   videoContainer.appendChild(makeLabel(peerConnection[remoteUuid].displayName));
 
   document.getElementById("video-grid").appendChild(videoContainer);
+
+  adjustVideoGrid()
 }
 
 function makeLabel(label) {
@@ -181,6 +173,18 @@ function makeLabel(label) {
   videoLabel.appendChild(document.createTextNode(label));
   videoLabel.classList.add("videoLabel");
   return videoLabel;
+}
+
+function handleDisconnection(event, remoteUuid) {
+  const state = peerConnection[remoteUuid].pc.iceConnectionState;
+  if (state === "failed" || state === "closed" || state === "disconnected") {
+    delete peerConnection[remoteUuid];
+    document
+      .getElementById("video-grid")
+      .removeChild(document.getElementById(`${remoteUuid}`));
+      
+      adjustVideoGrid();
+  }
 }
 
 function errorHandler(error) {
@@ -215,3 +219,19 @@ function leaveCall() {
   localStream.getTracks().forEach((track) => track.stop());
   window.location = "lobby.html";
 }
+
+function adjustVideoGrid() {
+  const videoContainers = document.querySelectorAll('.videoContainer');
+
+  if (window.innerWidth < 600) {
+    if (videoContainers.length > 2) {
+      document.getElementById("video-grid").style.gridTemplateColumns = "1fr 1fr";
+    } else {
+      document.getElementById("video-grid").style.gridTemplateColumns = "repeat(auto-fill, minmax(320px, 1fr))";
+    }
+  } else {
+    document.getElementById("video-grid").style.gridTemplateColumns = "repeat(auto-fill, minmax(320px, 1fr))";
+  }
+}
+
+window.addEventListener('resize', adjustVideoGrid);
