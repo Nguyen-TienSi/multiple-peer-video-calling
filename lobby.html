@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lobby Page</title>
-    <link rel="stylesheet" href="lobby.css">
-</head>
-<body>
+    <link rel="stylesheet" href="lobby.css" />
+  </head>
+  <body>
     <form id="join-form">
-        <input type="text" name="roomId" placeholder="Room ID">
-        <input type="text" name="join-name" placeholder="Tên">
-        <button type="submit">Vào phòng</button>
+      <input type="text" name="roomId" placeholder="Room ID" />
+      <input type="text" name="join-name" placeholder="Tên" />
+      <button type="submit">Vào phòng</button>
     </form>
 
     <script>
-        const form = document.getElementById("join-form");
+      const form = document.getElementById("join-form");
 
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const roomId = event.target.roomId.value;
-            const name = event.target["join-name"].value;
-            window.location = `index.html?room=${roomId}&name=${name}`;
-        });
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const roomId = event.target.roomId.value;
+        const name = event.target["join-name"].value;
+
+        if (roomId.trim() === "" || name.trim() === "") {
+          alert("Vui lòng nhập đủ thông tin!");
+        } else {
+          sessionStorage.setItem("roomId", roomId);
+          sessionStorage.setItem("name", name);
+          window.location = `/Room`;
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

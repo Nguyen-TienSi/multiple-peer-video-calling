@@ -1,26 +1,16 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const roomId = urlParams.get("room");
-const localDisplayName = urlParams.get("name");
-
-if (!roomId || !localDisplayName) {
-  window.location = "lobby.html";
-}
-
-document.addEventListener("DOMContentLoaded", start);
-
 const socket = io();
 let localUuid;
 let localStream;
 let peerConnection = {};
+const roomId = sessionStorage.getItem('roomId');
+const localDisplayName = sessionStorage.getItem('name');
 
+document.addEventListener("DOMContentLoaded", start);
 const cameraBtn = document.querySelector("#controlBtn button:nth-child(1)");
 const micBtn = document.querySelector("#controlBtn button:nth-child(2)");
-const leaveBtn = document.querySelector("#controlBtn button:nth-child(3)");
 
 cameraBtn.addEventListener("click", toggleCamera);
 micBtn.addEventListener("click", toggleMic);
-leaveBtn.addEventListener("click", leaveCall);
 
 const peerConnectionConfig = {
   iceServers: [
@@ -225,11 +215,6 @@ function toggleMic() {
     micIcon.style.display = "block";
     micBtn.textContent = "Mở mic";
   }
-}
-
-function leaveCall() {
-  localStream.getTracks().forEach((track) => track.stop());
-  window.location = "lobby.html";
 }
 
 function adjustVideoGrid() {
