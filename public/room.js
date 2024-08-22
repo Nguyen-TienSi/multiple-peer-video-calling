@@ -39,8 +39,8 @@ function start() {
       frameRate: { max: 30 },
     },
     audio: {
-      // autoGainControl: false,
-      // googAutoGainControl: false,
+      autoGainControl: false,
+      googAutoGainControl: false,
       channelCount: 2,
       echoCancellation: true,
       latency: 0,
