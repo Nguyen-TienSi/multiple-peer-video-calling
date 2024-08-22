@@ -41,14 +41,14 @@ function start() {
     audio: {
       autoGainControl: false,
       googAutoGainControl: false,
-      // channelCount: 2,
+      channelCount: 2,
       echoCancellation: true,
       latency: 0,
       noiseSuppression: true,
-      // sampleRate: 48000,
-      // sampleSize: 16,
-      // bandwidth: { audio: 128000 },
-      // volume: 1.0,
+      sampleRate: 48000,
+      sampleSize: 16,
+      bandwidth: { audio: 128000 },
+      volume: 1.0,
     },
   };
 
@@ -61,7 +61,6 @@ function start() {
       if (videoTrack) {
         const videoStream = new MediaStream([videoTrack]);
         videoElement.srcObject = videoStream;
-        videoElement.play();
       }
       
       document.querySelector(".videoContainer").appendChild(makeLabel(localDisplayName));
