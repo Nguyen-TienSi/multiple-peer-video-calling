@@ -47,7 +47,6 @@ function start() {
       noiseSuppression: true,
       sampleRate: 48000,
       bandwidth: { audio: 128000 },
-      volume: 2.0
     },
   };
 
