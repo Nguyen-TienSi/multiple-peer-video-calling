@@ -38,17 +38,16 @@ function start() {
       height: { max: 240 },
       frameRate: { max: 30 },
     },
-    // audio: {
-    //   autoGainControl: false,
-    //   googAutoGainControl: false,
-    //   channelCount: 2,
-    //   echoCancellation: true,
-    //   latency: 0,
-    //   noiseSuppression: true,
-    //   sampleRate: 48000,
-    //   bandwidth: { audio: 128000 },
-    // },
-    audio: true,
+    audio: {
+      // autoGainControl: false,
+      // googAutoGainControl: false,
+      channelCount: 2,
+      echoCancellation: true,
+      latency: 0,
+      noiseSuppression: true,
+      sampleRate: 48000,
+      bandwidth: { audio: 128000 },
+    },
   };
 
   navigator.mediaDevices
