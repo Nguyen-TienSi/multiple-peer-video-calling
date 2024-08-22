@@ -46,17 +46,24 @@ function start() {
       latency: 0,
       noiseSuppression: true,
       sampleRate: 48000,
-      bandwidth: { audio: 128000 }
+      bandwidth: { audio: 128000 },
+      volume: 1.0,
     },
   };
 
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then((stream) => {
-      document.querySelector(".videoContainer video").srcObject = stream;
-      document
-        .querySelector(".videoContainer")
-        .appendChild(makeLabel(localDisplayName));
+      const videoTrack = stream.getVideoTracks()[0];
+      const videoElement = document.querySelector(".videoContainer video");
+      
+      if (videoTrack) {
+        const videoStream = new MediaStream([videoTrack]);
+        videoElement.srcObject = videoStream;
+        videoElement.play();
+      }
+      
+      document.querySelector(".videoContainer").appendChild(makeLabel(localDisplayName));
       localStream = stream;
     })
     .catch(errorHandler)
