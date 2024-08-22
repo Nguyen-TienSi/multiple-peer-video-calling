@@ -45,8 +45,8 @@ function start() {
       echoCancellation: true,
       latency: 0,
       noiseSuppression: true,
-      sampleRate: 48000,
-      bandwidth: { audio: 128000 },
+      // sampleRate: 48000,
+      // bandwidth: { audio: 128000 },
     },
   };
 
