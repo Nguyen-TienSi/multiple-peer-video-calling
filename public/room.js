@@ -115,7 +115,9 @@ function setUpPeer(remoteUuid, displayName, initCall = false) {
     createVideo(event.streams[0], remoteUuid);
   peerConnection[remoteUuid].pc.oniceconnectionstatechange = (event) =>
     handleDisconnection(event, remoteUuid);
-  peerConnection[remoteUuid].pc.addStream(localStream);
+  localStream.getTracks().forEach(track => 
+    peerConnection[remoteUuid].pc.addTrack(track, localStream)
+  )
 
   if (initCall) {
     peerConnection[remoteUuid].pc
