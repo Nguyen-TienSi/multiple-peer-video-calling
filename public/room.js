@@ -42,9 +42,9 @@ function start() {
       autoGainControl: false,
       googAutoGainControl: false,
       // channelCount: 2,
-      echoCancellation: false,
+      echoCancellation: true,
       latency: 0,
-      noiseSuppression: false,
+      noiseSuppression: true,
       sampleRate: 48000,
       bandwidth: { audio: 128000 }
     },
