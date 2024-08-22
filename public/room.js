@@ -44,17 +44,30 @@ function start() {
       echoCancellation: false,
       latency: 0,
       noiseSuppression: false,
+      sampleRate: 48000,
+      bandwidth: { audio: 128000 }
     },
   };
 
   navigator.mediaDevices
     .getUserMedia(constraints)
-    .then((stream) => {
-      document.querySelector(".videoContainer video").srcObject = stream;
+    .then((stream) => {// Tạo audio context và media stream source
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
+
+      // Áp dụng xử lý âm thanh (ví dụ: gỡ tiếng vọng)
+      const echoCancellation = audioCtx.createMediaStreamDestination();
+      mediaStreamSource.connect(echoCancellation);
+
+      // Tạo một MediaStream mới với âm thanh đã xử lý và video từ stream ban đầu
+      const processedStream = new MediaStream([...echoCancellation.stream.getAudioTracks(), ...stream.getVideoTracks()]);
+
+      // Gán stream đã xử lý vào video
+      document.querySelector(".videoContainer video").srcObject = processedStream;
       document
         .querySelector(".videoContainer")
         .appendChild(makeLabel(localDisplayName));
-      localStream = stream;
+      localStream = processedStream;
     })
     .catch(errorHandler)
     .then(() => {
