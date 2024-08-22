@@ -42,7 +42,7 @@ function start() {
       autoGainControl: false,
       googAutoGainControl: false,
       // channelCount: 2,
-      echoCancellation: true,
+      echoCancellation: false,
       latency: 0,
       noiseSuppression: true,
       sampleRate: 48000,
