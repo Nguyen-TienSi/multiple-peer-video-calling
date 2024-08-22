@@ -41,8 +41,8 @@ function start() {
     audio: {
       autoGainControl: false,
       googAutoGainControl: false,
-      // channelCount: 2,
-      echoCancellation: false,
+      channelCount: 2,
+      echoCancellation: true,
       latency: 0,
       noiseSuppression: true,
       sampleRate: 48000,
