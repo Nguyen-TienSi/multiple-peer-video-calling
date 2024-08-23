@@ -1,11 +1,17 @@
+const roomId = sessionStorage.getItem('roomId');
+const localDisplayName = sessionStorage.getItem('name');
+
+if (!roomId || !localDisplayName) {
+  window.location = "/";
+}
+
+document.addEventListener("DOMContentLoaded", start);
+
 const socket = io();
 let localUuid;
 let localStream;
 let peerConnection = {};
-const roomId = sessionStorage.getItem('roomId');
-const localDisplayName = sessionStorage.getItem('name');
 
-document.addEventListener("DOMContentLoaded", start);
 const cameraBtn = document.querySelector("#controlBtn button:nth-child(1)");
 const micBtn = document.querySelector("#controlBtn button:nth-child(2)");
 
@@ -56,7 +62,10 @@ function start() {
       document.querySelector(".videoContainer").appendChild(makeLabel(localDisplayName));
       localStream = stream;
     })
-    .catch(errorHandler)
+    .catch(() => {
+      alert("Lỗi: không mở được camera!");
+      history.back();
+    })
     .then(() => {
       socket.on("message", getMessage);
       socket.emit("join", roomId);
